@@ -50,12 +50,6 @@ public class FruitListActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(List<Fruit> items) {
-            for (Fruit f : items) {
-                Log.v(TAG, "---");
-                Log.v(TAG, f.getName());
-                Log.v(TAG, f.getDescription());
-            }
-
             mFruitList.setAdapter(new FruitListAdapter(FruitListActivity.this, items));
         }
     }

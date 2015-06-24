@@ -2,11 +2,16 @@ package com.chetbox.fruit;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.TextView;
 import android.widget.TwoLineListItem;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -14,8 +19,10 @@ public class FruitListAdapter implements ListAdapter {
 
     private final List<Fruit> mItems;
     private final LayoutInflater mLayoutInflator;
+    private final Context mContext;
 
     public FruitListAdapter(Context context, List<Fruit> items) {
+        mContext = context;
         mItems = items;
         mLayoutInflator = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -62,14 +69,20 @@ public class FruitListAdapter implements ListAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TwoLineListItem listItem = (TwoLineListItem) convertView;
         if (convertView == null) {
-            convertView = mLayoutInflator.inflate(android.R.layout.simple_list_item_2, null);
+            convertView = mLayoutInflator.inflate(R.layout.fruit_list_item, null);
         }
 
         Fruit item = mItems.get(position);
-        ((TwoLineListItem) convertView).getText1().setText(item.getName());
-        ((TwoLineListItem) convertView).getText2().setText(item.getDescription());
+
+        ((TextView) convertView.findViewById(android.R.id.text1)).setText(item.getName());
+        ((TextView) convertView.findViewById(android.R.id.text2)).setText(item.getDescription());
+
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.image);
+        Picasso.with(mContext)
+                .load(item.getImageUri())
+                .placeholder(android.R.drawable.ic_menu_help)
+                .into(imageView);
 
         return convertView;
     }
