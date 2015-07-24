@@ -22,7 +22,7 @@ import java.util.List;
 public class FruitListActivity extends AppCompatActivity {
 
     private static final String TAG = FruitListActivity.class.getSimpleName();
-    private static final String FRUIT_URL = "http://private-e889-fruity.apiary-mock.com/list";
+    private static final String FRUIT_URL = "http://private-e889-fruity.apiary-mock.com/fruits";
     private static final Type FRUIT_LIST_TYPE = new TypeToken<ArrayList<Fruit>>() {}.getType();
 
     private OkHttpClient mHttpClient = new OkHttpClient();
